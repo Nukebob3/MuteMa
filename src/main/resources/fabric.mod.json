@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "mutema",
+	"version": "${version}",
+	"name": "mute ma",
+	"description": "MUTE MA GAME!!!",
+	"authors": [
+		"Nukebob3"
+	],
+	"contact": {
+		"homepage": "youtube.com/nukebob3",
+		"sources": "https://modrinth.com/project/mute-ma"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/mutema/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.nukebob.MuteMa"
+		],
+		"fabric-datagen": [
+			"net.nukebob.MuteMaDataGenerator"
+		]
+	},
+	"mixins": [
+		"mutema.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": ">=1.20",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
