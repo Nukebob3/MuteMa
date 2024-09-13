@@ -27,10 +27,7 @@ public abstract class OptionsScreenMixin extends Screen {
     private TextIconButtonWidget textIconButtonWidget = createButton(20, (buttonWidget) -> {
         playSound(super.client.getSoundManager());
         muteButtonPress();
-    }, volume == 0.0);
-
-    @Unique
-    private static float volume = MinecraftClient.getInstance().options.getSoundVolume(SoundCategory.MASTER);
+    }, MuteMa.muted);
 
     protected OptionsScreenMixin(Text title) {
         super(title);
@@ -71,21 +68,18 @@ public abstract class OptionsScreenMixin extends Screen {
     private void muteButtonPress() {
         MinecraftClient client = MinecraftClient.getInstance();
         switchImage();
-        if (volume == 0.0f) {
+        if (MuteMa.muted) {
             client.getSoundManager().updateSoundVolume(SoundCategory.MASTER, client.options.getSoundVolume(SoundCategory.MASTER));
-            volume = client.options.getSoundVolume(SoundCategory.MASTER);
-            if (volume == 0.0f) {
+            if (MuteMa.muted) {
                 MinecraftClient.getInstance().getSoundManager().updateSoundVolume(SoundCategory.MASTER, 1.0f);
-                volume = 1.0f;
             }
+            MuteMa.muted = false;
             if (client.player != null) {
                 client.player.removeStatusEffect(ModEffects.MUTED_EFFECT);
             }
-
-            MuteMa.muted = false;
         } else {
             client.getSoundManager().updateSoundVolume(SoundCategory.MASTER, 0.0f);
-            volume = 0.0f;
+            MuteMa.muted = true;
 
             if (client.player != null) {
                 client.player.addStatusEffect(new StatusEffectInstance(ModEffects.MUTED_EFFECT, -1, 0, true, true));
@@ -101,7 +95,7 @@ public abstract class OptionsScreenMixin extends Screen {
         this.textIconButtonWidget = createButton(20, (buttonWidget) -> {
             playSound(super.client.getSoundManager());
             muteButtonPress();
-        }, volume != 0.0);
+        }, !MuteMa.muted);
         refresh(this.textIconButtonWidget);
         this.addDrawableChild(textIconButtonWidget);
     }
