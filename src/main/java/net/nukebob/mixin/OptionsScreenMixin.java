@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextIconButtonWidget;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -24,7 +25,7 @@ public abstract class OptionsScreenMixin extends Screen {
 
     @Unique
     private TextIconButtonWidget textIconButtonWidget = createButton(20, (buttonWidget) -> {
-        playSound();
+        playSound(super.client.getSoundManager());
         muteButtonPress();
     }, volume == 0.0);
 
@@ -62,8 +63,8 @@ public abstract class OptionsScreenMixin extends Screen {
     }
 
     @Unique
-    private void playSound() {
-        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f), 0);
+    private void playSound(SoundManager soundManager) {
+        soundManager.play(PositionedSoundInstance.master(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F));
     }
 
     @Unique
@@ -98,7 +99,7 @@ public abstract class OptionsScreenMixin extends Screen {
     private void switchImage() {
         this.remove(this.textIconButtonWidget);
         this.textIconButtonWidget = createButton(20, (buttonWidget) -> {
-            playSound();
+            playSound(super.client.getSoundManager());
             muteButtonPress();
         }, volume != 0.0);
         refresh(this.textIconButtonWidget);
