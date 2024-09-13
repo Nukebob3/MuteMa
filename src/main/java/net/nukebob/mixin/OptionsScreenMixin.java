@@ -64,7 +64,7 @@ public abstract class OptionsScreenMixin extends Screen {
 
     @Unique
     private void playSound(SoundManager soundManager) {
-        soundManager.play(PositionedSoundInstance.master(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F));
+        soundManager.play(PositionedSoundInstance.master(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F), 0);
     }
 
     @Unique
