@@ -15,7 +15,7 @@
 	"icon": "assets/mutema/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
+		"client": [
 			"net.nukebob.MuteMa"
 		],
 		"fabric-datagen": [

@@ -1,18 +1,18 @@
 package net.nukebob;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.nukebob.effects.ModEffects;
 
-public class MuteMa implements ModInitializer {
+public class MuteMa implements ClientModInitializer {
 	public static final String MOD_ID = "mutema";
 
 	public static boolean muted = false;
 
 	@Override
-	public void onInitialize() {
+	public void onInitializeClient() {
 		ModEffects.registerEffects();
 		ClientTickEvents.END_CLIENT_TICK.register(this::manageEffect);
 	}
