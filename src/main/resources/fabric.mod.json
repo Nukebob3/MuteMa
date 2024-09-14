@@ -13,9 +13,9 @@
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/mutema/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
+		"client": [
 			"net.nukebob.MuteMa"
 		],
 		"fabric-datagen": [

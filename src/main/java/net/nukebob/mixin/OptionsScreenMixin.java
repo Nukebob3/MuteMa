@@ -1,5 +1,7 @@
 package net.nukebob.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
@@ -20,12 +22,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(OptionsScreen.class)
 public abstract class OptionsScreenMixin extends Screen {
 
     @Unique
     private TextIconButtonWidget textIconButtonWidget = createButton(20, (buttonWidget) -> {
-        playSound(super.client.getSoundManager());
         muteButtonPress();
     }, MuteMa.muted);
 
@@ -61,11 +63,12 @@ public abstract class OptionsScreenMixin extends Screen {
 
     @Unique
     private void playSound(SoundManager soundManager) {
-        soundManager.play(PositionedSoundInstance.master(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F), 0);
+        soundManager.play(PositionedSoundInstance.master(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F), 0);
     }
 
     @Unique
     private void muteButtonPress() {
+        this.playSound(MinecraftClient.getInstance().getSoundManager());
         MinecraftClient client = MinecraftClient.getInstance();
         switchImage();
         if (MuteMa.muted) {
@@ -93,7 +96,6 @@ public abstract class OptionsScreenMixin extends Screen {
     private void switchImage() {
         this.remove(this.textIconButtonWidget);
         this.textIconButtonWidget = createButton(20, (buttonWidget) -> {
-            playSound(super.client.getSoundManager());
             muteButtonPress();
         }, !MuteMa.muted);
         refresh(this.textIconButtonWidget);
