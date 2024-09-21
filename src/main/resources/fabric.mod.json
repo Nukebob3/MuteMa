@@ -17,9 +17,6 @@
 	"entrypoints": {
 		"client": [
 			"net.nukebob.MuteMa"
-		],
-		"fabric-datagen": [
-			"net.nukebob.MuteMaDataGenerator"
 		]
 	},
 	"mixins": [
